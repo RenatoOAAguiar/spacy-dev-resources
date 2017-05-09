@@ -54,6 +54,7 @@ def install_dep(env_dir=None):
 def build_wiki_vocab(language, env=None):
     corpus_dir = CORPUS_DIR.format(lang=language)
     local("sudo mkdir -p {}".format(corpus_dir))
+    local("sudo chmod 777 {}".format(corpus_dir))
 
     out_file = "{}_wiki.xml.bz2".format(language)
     wikipedia.download(corpus_dir, out_file, language)
