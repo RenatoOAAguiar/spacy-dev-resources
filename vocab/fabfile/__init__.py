@@ -38,7 +38,7 @@ def install_brown(path=BROWN_DIR):
     local("sudo mkdir -p {}".format(path))
     local("sudo git clone https://github.com/percyliang/brown-cluster.git ./{}".format(path))
     with lcd(path):
-        local("make")
+        local("sudo make")
 
 
 @task
