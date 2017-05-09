@@ -28,6 +28,7 @@ def extract(venv, wiki_dump_path, wiki_pages_dir, lang):
     if not exists(wiki_pages_dir):
         with optional_venv(venv, local=True):
             local("sudo mkdir -p {}".format(wiki_pages_dir))
+            local("sudo chmod -R 777 ./{}/".format(wiki_pages_dir))
             local(
                 "python ./corpus-utils/wiki2txt.py {dump} {out} {lang}".format(dump=wiki_dump_path, out=wiki_pages_dir,
                                                                                lang=lang))
