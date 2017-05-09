@@ -69,9 +69,11 @@ def build_wiki_vocab(language, env=None):
 def build_vocab(language, corpus_files_root):
     corpus_dir = CORPUS_DIR.format(lang=language)
     local("sudo mkdir -p {}".format(corpus_dir))
+    local("sudo chmod 777 {}".format(corpus_dir))
 
     model_dir = MODEL_DIR.format(lang=language)
     local("sudo mkdir -p {}".format(model_dir))
+    local("sudo chmod 777 {}".format(model_dir))
 
     corpus_file = join(corpus_dir, "{}_wiki.corpus".format(language))
     merge_corpus(corpus_files_root, corpus_file)
@@ -137,6 +139,7 @@ def word_counts(input_glob, out_path):
 
 def brown_clusters(corpus_path, output_dir, clusters=2 ** 10, threads=4):
     local("sudo mkdir -p {}".format(output_dir))
+    local("chmod 777 {}".format(output_dir))
     brown_script = join(BROWN_DIR, "wcluster")
     local(
         "{bs} --text ./{corpus_file} --c {clusters} --output_dir {output_dir} --threads {threads}".format(
