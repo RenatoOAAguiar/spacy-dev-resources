@@ -152,7 +152,7 @@ def word_counts(input_glob, out_path):
     local("python training/plain_word_freqs.py \"{input_glob}\" {out}".format(input_glob=input_glob, out=out_path))
 
 
-def brown_clusters(corpus_path, output_dir, clusters=2 ** 10, threads=4):
+def brown_clusters(corpus_path, output_dir, clusters=2 ** 6, threads=4):
     local("sudo mkdir -p {}".format(output_dir))
     local("sudo chmod 777 -R ./{}/".format(output_dir))
     brown_script = join(BROWN_DIR, "wcluster")
