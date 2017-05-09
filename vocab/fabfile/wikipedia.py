@@ -17,7 +17,7 @@ def download(corpus_dir, out_file, lang, date=DEFAULT_DATE):
 
     url = DUMP_URL.format(lang=lang, date=date)
     local("sudo mkdir -p {dir}".format(dir=data_dir))
-    local("sudo chmod 777 {dir}".format(dir=data_dir))
+    local("sudo chmod -R 777 {dir}".format(dir=data_dir))
     with lcd(data_dir):
         local("wget {}".format(url))
         local("mv {} {}".format(DUMP_FILE.format(lang=lang, date=date), out_file))
