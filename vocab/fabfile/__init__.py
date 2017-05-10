@@ -5,6 +5,7 @@ from fabric.decorators import task
 
 import wikipedia
 from .utils import optional_venv
+from os.path
 
 SCRIPTS_DIR = "./scripts"
 BROWN_DIR = SCRIPTS_DIR + "/" + "brown"
@@ -52,12 +53,13 @@ def install_dep(env_dir=None):
 
 @task
 def build_wiki_vocab(language, env=None):
-    corpus_dir = CORPUS_DIR.format(lang=language)
-    local("sudo mkdir -p {}".format(corpus_dir))
-    local("sudo chmod -R 777 ./{}/".format(corpus_dir))
+    if os.path.exists("data/corpora/{}/wiki/{}_wiki.xml.bz2".format(language, language)):
+        corpus_dir = CORPUS_DIR.format(lang=language)
+        local("sudo mkdir -p {}".format(corpus_dir))
+        local("sudo chmod -R 777 ./{}/".format(corpus_dir))
 
-    out_file = "{}_wiki.xml.bz2".format(language)
-    wikipedia.download(corpus_dir, out_file, language)
+        out_file = "{}_wiki.xml.bz2".format(language)
+        wikipedia.download(corpus_dir, out_file, language)
 
     dump_path = join(corpus_dir, out_file)
     corpus_files_root = join(corpus_dir, "wiki")
