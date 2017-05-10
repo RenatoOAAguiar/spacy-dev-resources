@@ -15,12 +15,12 @@ MODEL_DIR = "./data/model/{lang}"
 
 @task
 def clean_corpora(language):
-    local("sudo rm -rf {}".format(CORPUS_DIR.format(lang=language)))
+    local("rm -rf {}".format(CORPUS_DIR.format(lang=language)))
 
 
 @task
 def clean_models(language):
-    local("sudo rm -rf {}".format(MODEL_DIR.format(lang=language)))
+    local("rm -rf {}".format(MODEL_DIR.format(lang=language)))
 
 
 @task
@@ -36,10 +36,10 @@ def clean():
 
 @task
 def install_brown(path=BROWN_DIR):
-    local("sudo mkdir -p {}".format(path))
-    local("sudo git clone https://github.com/percyliang/brown-cluster.git ./{}".format(path))
+    local("mkdir -p {}".format(path))
+    local("git clone https://github.com/percyliang/brown-cluster.git ./{}".format(path))
     with lcd(path):
-        local("sudo make")
+        local("make")
 
 
 @task
@@ -55,8 +55,8 @@ def install_dep(env_dir=None):
 def build_wiki_vocab(language, env=None):
     if os.path.exists("data/corpora/{}/wiki/{}_wiki.xml.bz2".format(language, language)):
         corpus_dir = CORPUS_DIR.format(lang=language)
-        local("sudo mkdir -p {}".format(corpus_dir))
-        local("sudo chmod -R 777 ./{}/".format(corpus_dir))
+        local("mkdir -p {}".format(corpus_dir))
+        #local("sudo chmod -R 777 ./{}/".format(corpus_dir))
 
         out_file = "{}_wiki.xml.bz2".format(language)
         wikipedia.download(corpus_dir, out_file, language)
@@ -85,12 +85,12 @@ def extrair_vocab(language, env=None):
 @task
 def build_vocab(language, corpus_files_root):
     corpus_dir = CORPUS_DIR.format(lang=language)
-    local("sudo mkdir -p {}".format(corpus_dir))
-    local("sudo chmod -R 777 ./{}/".format(corpus_dir))
+    local("mkdir -p {}".format(corpus_dir))
+    #local("sudo chmod -R 777 ./{}/".format(corpus_dir))
 
     model_dir = MODEL_DIR.format(lang=language)
-    local("sudo mkdir -p {}".format(model_dir))
-    local("sudo chmod -R 777 ./{}/".format(model_dir))
+    local("mkdir -p {}".format(model_dir))
+    #local("sudo chmod -R 777 ./{}/".format(model_dir))
 
     corpus_file = join(corpus_dir, "{}_wiki.corpus".format(language))
     merge_corpus(corpus_files_root, corpus_file)
@@ -126,7 +126,7 @@ def merge_corpus(corpus_files_root, unified_corpus_path):
 
 
 def word2vec(corpus_path, out_path, dim=150, threads=4, min_count=10, cbow=0):
-    local("sudo mkdir -p {}".format(dirname(out_path)))
+    local("mkdir -p {}".format(dirname(out_path)))
     local(
         "python -m gensim.scripts.word2vec_standalone " +
         "-train {corpus_file} -output {file} -size {dim} -threads {threads} -min_count {min} -cbow {cbow}".format(
@@ -155,8 +155,8 @@ def word_counts(input_glob, out_path):
 
 
 def brown_clusters(corpus_path, output_dir, clusters=2 ** 6, threads=4):
-    local("sudo mkdir -p {}".format(output_dir))
-    local("sudo chmod 777 -R ./{}/".format(output_dir))
+    local("mkdir -p {}".format(output_dir))
+    #local("sudo chmod 777 -R ./{}/".format(output_dir))
     brown_script = join(BROWN_DIR, "wcluster")
     local(
         "{bs} --text ./{corpus_file} --c {clusters} --output_dir {output_dir} --threads {threads}".format(

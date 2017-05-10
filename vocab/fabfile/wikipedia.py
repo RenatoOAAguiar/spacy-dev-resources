@@ -16,8 +16,8 @@ def download(corpus_dir, out_file, lang, date=DEFAULT_DATE):
         return
 
     url = DUMP_URL.format(lang=lang, date=date)
-    local("sudo mkdir -p {dir}".format(dir=data_dir))
-    local("sudo chmod -R 777 {dir}".format(dir=data_dir))
+    local("mkdir -p {dir}".format(dir=data_dir))
+    #local("sudo chmod -R 777 {dir}".format(dir=data_dir))
     with lcd(data_dir):
         local("wget {}".format(url))
         local("mv {} {}".format(DUMP_FILE.format(lang=lang, date=date), out_file))
@@ -27,8 +27,8 @@ def download(corpus_dir, out_file, lang, date=DEFAULT_DATE):
 def extract(venv, wiki_dump_path, wiki_pages_dir, lang):
     if not exists(wiki_pages_dir):
         with optional_venv(venv, local=True):
-            local("sudo mkdir -p {}".format(wiki_pages_dir))
-            local("sudo chmod -R 777 ./{}/".format(wiki_pages_dir))
+            local("mkdir -p {}".format(wiki_pages_dir))
+            #local("sudo chmod -R 777 ./{}/".format(wiki_pages_dir))
             local(
                 "python ./corpus-utils/wiki2txt.py {dump} {out} {lang}".format(dump=wiki_dump_path, out=wiki_pages_dir,
                                                                                lang=lang))
