@@ -5,6 +5,7 @@ from fabric.decorators import task
 
 import wikipedia
 from .utils import optional_venv
+import os.path
 
 SCRIPTS_DIR = "./scripts"
 BROWN_DIR = SCRIPTS_DIR + "/" + "brown"
