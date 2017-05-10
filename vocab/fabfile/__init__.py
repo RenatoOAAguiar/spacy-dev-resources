@@ -53,7 +53,7 @@ def install_dep(env_dir=None):
 
 @task
 def build_wiki_vocab(language, env=None):
-    if os.path.exists("data/corpora/{}/wiki/{}_wiki.xml.bz2".format(language, language)):
+    if os.path.exists("data/corpora/{}/{}_wiki.xml.bz2".format(language, language)):
         corpus_dir = CORPUS_DIR.format(lang=language)
         local("mkdir -p {}".format(corpus_dir))
         #local("sudo chmod -R 777 ./{}/".format(corpus_dir))
