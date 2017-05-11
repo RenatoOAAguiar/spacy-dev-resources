@@ -53,13 +53,12 @@ def install_dep(env_dir=None):
 
 @task
 def build_wiki_vocab(language, env=None):
-    if os.path.exists("data/corpora/{}/{}_wiki.xml.bz2".format(language, language)):
-        corpus_dir = CORPUS_DIR.format(lang=language)
-        local("mkdir -p {}".format(corpus_dir))
-        #local("sudo chmod -R 777 ./{}/".format(corpus_dir))
-
-        out_file = "{}_wiki.xml.bz2".format(language)
-        wikipedia.download(corpus_dir, out_file, language)
+    corpus_dir = CORPUS_DIR.format(lang=language)
+    local("mkdir -p {}".format(corpus_dir))
+    #local("sudo chmod -R 777 ./{}/".format(corpus_dir))
+    out_file = "{}_wiki.xml.bz2".format(language)
+    #if os.path.exists("data/corpora/{}/{}_wiki.xml.bz2".format(language, language)):
+    wikipedia.download(corpus_dir, out_file, language)
 
     dump_path = join(corpus_dir, out_file)
     corpus_files_root = join(corpus_dir, "wiki")
@@ -104,7 +103,7 @@ def build_vocab(language, corpus_files_root):
     brown_out_dir = join(model_dir, "brown")
     brown_clusters(corpus_file, brown_out_dir)
 
-    init_vocab(language, model_dir, word_freq_path, word2vec_model_path, brown_out_dir)
+    # init_vocab(language, model_dir, word_freq_path, word2vec_model_path, brown_out_dir)
 
 
 def init_vocab(language, model_dir, word_freq_path, word2vec_model_path, brown_out_dir):
