@@ -5,7 +5,7 @@ from fabric.api import lcd, local
 from .utils import optional_venv
 
 DEFAULT_DATE = "latest"
-DUMP_FILE = "{lang}wiki-{date}-pages-articles.xml.bz2"
+DUMP_FILE = "{lang}wiki-{date}-pages-meta-history1.xml.bz2"
 DUMP_URL = "http://download.wikimedia.org/{lang}wiki/{date}/" + DUMP_FILE
 
 
