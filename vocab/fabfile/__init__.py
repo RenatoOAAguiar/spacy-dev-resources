@@ -47,7 +47,7 @@ def install_dep(env_dir=None):
     if env_dir is not None:
         local("virtualenv {}".format(env_dir))
     with optional_venv(env_dir, local=True):
-        local("pip install textacy==0.3.2 plac==0.9.6 spacy gensim==1.0.1 tqdm")
+        local("pip install textacy==0.3.4 plac==0.9.6 spacy gensim==1.0.1 tqdm")
     install_brown()
 
 
@@ -57,8 +57,8 @@ def build_wiki_vocab(language, env=None):
     local("mkdir -p {}".format(corpus_dir))
     #local("sudo chmod -R 777 ./{}/".format(corpus_dir))
     out_file = "{}_wiki.xml.bz2".format(language)
-    if os.path.exists("data/corpora/{}/{}_wiki.xml.bz2".format(language, language)):
-        wikipedia.download(corpus_dir, out_file, language)
+    #if os.path.exists("data/corpora/{}/{}_wiki.xml.bz2".format(language, language)):
+    wikipedia.download(corpus_dir, out_file, language)
 
     dump_path = join(corpus_dir, out_file)
     corpus_files_root = join(corpus_dir, "wiki")
